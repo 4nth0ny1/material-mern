@@ -1,7 +1,17 @@
+const jwt = require("jsonwebtoken");
+
 module.exports = (req, res) => {
   // check if the password matches
   if (req.body.password === process.env.PASSWORD) {
-    res.send("hello login new setup");
+    const token = jwt.sign(
+      {
+        userId: 1,
+      },
+      process.env.SECRET
+    );
+    res.json({
+      token,
+    });
   } else {
     res.status(401).send("Wrong Password");
   }
