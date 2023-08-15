@@ -17,7 +17,14 @@ const bull = (
 
 export default function TodoItem({ text, completed }) {
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card
+      sx={{
+        minWidth: 275,
+        border: "1px solid black",
+        maxWidth: 300,
+        height: 100,
+      }}
+    >
       <CardContent>
         <Typography variant="h5" component="div">
           {text}
