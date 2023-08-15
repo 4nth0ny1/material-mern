@@ -4,6 +4,8 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { useQueryClient, useMutation } from "react-query";
+import deleteTodoRequest from "../api/deleteTodoRequest";
 // import Button from "@mui/material/Button";
 // import CardActions from "@mui/material/CardActions";
 
@@ -16,7 +18,14 @@ const bull = (
   </Box>
 );
 
-export default function TodoItem({ text, completed }) {
+export default function TodoItem({ id, text, completed }) {
+  const queryClient = useQueryClient();
+
+  const { mutate: deleteTodo } = useMutation((id) => deleteTodoRequest(id), {
+    onSettled: () => {
+      queryClient.invalidateQueries("todos");
+    },
+  });
   return (
     <Card
       sx={{
@@ -39,7 +48,7 @@ export default function TodoItem({ text, completed }) {
           <Typography variant="h5" component="div">
             {text}
           </Typography>
-          <DeleteForeverIcon color="error" />
+          <DeleteForeverIcon color="error" onClick={() => deleteTodo(id)} />
         </Box>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {completed ? "completed" : "not completed"}

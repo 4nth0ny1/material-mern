@@ -32,6 +32,7 @@ export default function TodoList() {
                 <Item>
                   <TodoItem
                     key={todo._id}
+                    id={todo._id}
                     text={todo.text}
                     completed={todo.completed}
                   />
