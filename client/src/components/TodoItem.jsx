@@ -18,7 +18,8 @@ const bull = (
   </Box>
 );
 
-export default function TodoItem({ id, text, completed }) {
+export default function TodoItem({ id, text, completed, comments }) {
+  console.log(comments);
   const queryClient = useQueryClient();
 
   const { mutate: deleteTodo } = useMutation((id) => deleteTodoRequest(id), {
@@ -55,6 +56,9 @@ export default function TodoItem({ id, text, completed }) {
           <Typography variant="h5" component="div">
             {text}
           </Typography>
+          {comments.map((comment) => (
+            <div key={comment._id}>{comment.content}</div>
+          ))}
           <DeleteForeverIcon color="error" onClick={() => deleteTodo(id)} />
         </Box>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">

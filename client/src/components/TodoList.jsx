@@ -15,6 +15,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function TodoList() {
   const { data, isLoading } = useQuery("todos", getTodosRequest);
+
   return (
     <div>
       <h2>TodoList</h2>
@@ -35,6 +36,7 @@ export default function TodoList() {
                     id={todo._id}
                     text={todo.text}
                     completed={todo.completed}
+                    comments={todo.comments}
                   />
                 </Item>
               </Grid>
