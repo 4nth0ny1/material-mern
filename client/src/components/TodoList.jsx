@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import getTodosRequest from "../api/getTodosRequest";
+import TodoItem from "./TodoItem";
 
 export default function TodoList() {
   const { data, isLoading } = useQuery("todos", getTodosRequest);
@@ -11,7 +12,13 @@ export default function TodoList() {
         <div>Loading ...</div>
       ) : (
         data?.map((todo) => {
-          return <div key={todo._id}>{todo.text}</div>;
+          return (
+            <TodoItem
+              key={todo._id}
+              text={todo.text}
+              completed={todo.completed}
+            />
+          );
         })
       )}
     </div>
