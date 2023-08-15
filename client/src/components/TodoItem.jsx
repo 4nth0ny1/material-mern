@@ -22,6 +22,13 @@ export default function TodoItem({ id, text, completed }) {
   const queryClient = useQueryClient();
 
   const { mutate: deleteTodo } = useMutation((id) => deleteTodoRequest(id), {
+    onMutate: () => {
+      const confirmed = confirm("Are you sure?");
+
+      if (!confirmed) {
+        signal;
+      }
+    },
     onSettled: () => {
       queryClient.invalidateQueries("todos");
     },
@@ -34,7 +41,7 @@ export default function TodoItem({ id, text, completed }) {
         maxWidth: 300,
         height: 100,
         marginTop: "10px",
-        boxShadow: "0.1px 0.1px 0.1px 0.5px gray",
+        boxShadow: "0px 0px 0px 0px white",
       }}
     >
       <CardContent>
